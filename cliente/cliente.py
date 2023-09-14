@@ -2,8 +2,9 @@ import socket
 import json
 import os
 import time
-HOST = '10.65.131.39' #IP (tem que ser trocado para o ip do computador em que o controller está)
+HOST = '172.16.103.238' #IP (tem que ser trocado para o ip do computador em que o controller está)
 PORT = 3003 #Número da porta
+HOST_RFID = '172.16.103.0'
 PORT_RFID = 7890 #porta para o rfid
 envio_controller = {}
 #Insere os produtos manualmente (TAGS)
@@ -22,7 +23,7 @@ def inserir_prod(servidor):
 def ler_tags(servidor):
     while True:
         servidor_rfid = socket.socket(socket.AF_INET, socket.SOCK_STREAM) #objeto socket IPV4 e TCP
-        servidor_rfid.connect((HOST, PORT_RFID)) #Pedindo para conectar com o servidor
+        servidor_rfid.connect((HOST_RFID, PORT_RFID)) #Pedindo para conectar com o servidor
         tags = servidor_rfid.recv(1024).decode('utf-8')
         
         lista = json.loads(tags)
@@ -44,6 +45,12 @@ def finalizar_compra(servidor):
     if resposta == 'carrinho_vazio':
         print('O Carrinho de compras está vazio!!!')
         time.sleep(5)
+    
+    elif resposta == 'BLOCK':
+        print('CAIXA BLOQUEADO')
+        time.sleep(5)
+        return
+    
     else:
         print('COMPRA FINALIZADA COM SUCESSO! TENHA UM BOM DIA!!!')
         time.sleep(5)
@@ -55,6 +62,10 @@ def visualizar_carrinho(servidor):
     if resposta == 'carrinho_vazio':
         print('O Carrinho de compras está vazio!!!')
         time.sleep(5)
+    elif resposta == 'BLOCK':
+        print('CAIXA BLOQUEADO')
+        time.sleep(5)
+        return
         
     else:
         resposta = json.loads(resposta)

@@ -75,3 +75,4 @@ Portanto, é possível concluir que a maioria dos objetivos propostos pelo probl
 É importante também ressaltar a falta de cumprimento em uma dos objetivos, que foi a utilização do docker, devido a alguns problemas enfrentados na tentativa de sua utilização.
 Isso pode ser proposto como possível melhoria para o sistema, possibilitando que ele rode com mais facilidade em mais computadores. Uma melhoria que também pode ser implementada é o uso de diferentes leitores RIFD para cada caixa, evitando problemas com concorrência e leituras incorretas. Também pode ser implementada uma interface exclusiva para o administrador, facilitando o seu acesso às funcionalidades.
 
+# 4. Referencias

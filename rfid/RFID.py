@@ -4,13 +4,14 @@ import sys
 from datetime import datetime
 import socket
 import json
-HOST = 7890
-PORT_RFID = '10.65.131.39' #Tem que trocar o ip de acordo com o computador
-param = 2300
+PORT_RFID = 7890
+HOST= '172.16.103.0' #Tem que trocar o ip de acordo com o computador
+
 
 
 def enviar_tags(servidor_rfid): 
         try:     
+                param = 2300
                 if len(sys.argv) > 1:
                         param = int(sys.argv[1])
 
@@ -45,11 +46,12 @@ def main():
         servidor_rfid = socket.socket(socket.AF_INET, socket.SOCK_STREAM) #objeto socket IPV4 e TCP
         servidor_rfid.bind((HOST, PORT_RFID)) #vinculando o socket (servidor e a porta)
         servidor_rfid.listen() #Entrando no modo de escuta
-        servidor_rfid.connect((HOST, PORT_RFID)) #Pedindo para conectar com o servidor
+        print('Ouvindo no host: ', HOST, ' na porta', PORT_RFID) #mensagem informando que a conexão foi aceita
 
         while True:
              conn, ender = servidor_rfid.accept() #retorno da conexão, conexão e endereço
-             enviar_tags(servidor_rfid)
+             print(f'Conexão aceita com {ender}')
+             enviar_tags(conn)
 
 if __name__ == "__main__": 
     main()
